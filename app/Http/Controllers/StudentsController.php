@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use domain\facades\StudentFacade;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StudentsController extends Controller
 {
@@ -16,37 +17,37 @@ class StudentsController extends Controller
     }
 
     public function index (){
-        $studentList['students'] =StudentFacade::all();
-        return view('pages.students.index')->with($studentList);
+        
+        return Inertia::render('Student/index');
     }
     public function add (Request $request){
 
-        StudentFacade::add($request);
-        return redirect()->back();
+        return StudentFacade::add($request);
+    }
+    public function list (){
+
+        $students = StudentFacade::all();
+        return response()->json($students);
+    }
+    public function get ($studentId){
+
+        $student = StudentFacade::get($studentId);
+        return response()->json($student);
     }
 
     public function delete ($studentId){
 
-        StudentFacade::delete($studentId);
-        return redirect()->back();
+        return StudentFacade::delete($studentId);
     }
     public function active ($studentId){
 
-        StudentFacade::active($studentId);
-        return redirect()->back();
+        return StudentFacade::active($studentId);
     }
 
-    public function edit (Request $request){
-
-        $student['student'] =StudentFacade::edit($request);
-        return view('pages.students.edit')->with($student);
-    }
 
     public function update(Request $request, $studentId) {
 
-       StudentFacade:: update($request,$studentId);
-    
-        return redirect()->back()->with('success', 'Student updated successfully');
+        return StudentFacade:: update($request,$studentId);
     }
 
 

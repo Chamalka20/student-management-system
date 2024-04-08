@@ -25,7 +25,7 @@ class StudentService{
         $validatedData = $request->validate([
             'name' => 'required|string|max:45',
             'age' => 'required|integer|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'image' => '', 
         ]);
 
         if ($request->hasFile('image')) {
@@ -47,14 +47,20 @@ class StudentService{
     }
     public function active ($studentId){
         $student= $this->student->find($studentId);
-        $student->status =1;
+
+        if($student->status == 1){
+            $student->status =0;
+        }else{
+            $student->status =1;
+        }
+
         $student->update();
         
     }
 
-    public function edit (Request $request){
+    public function get($studentId){
 
-       return $this->student->find($request->studentId); 
+       return $this->student->find($studentId); 
     }
 
     public function update(Request $request, $studentId) {
@@ -62,7 +68,7 @@ class StudentService{
         $validatedData = $request->validate([
             'name' => 'required|string|max:45',
             'age' => 'required|integer|min:0',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'image' => '', 
         ]);
     
       

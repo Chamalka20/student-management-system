@@ -22,8 +22,9 @@ Route::get('/',[HomeController::class, "index"])->name("home");
 
 Route ::prefix('/students') ->group(function (){
     Route::get('/',[StudentsController::class, "index"])->name('students');
+    Route::get('/list',[StudentsController::class, "list"])->name('student.list');
     Route::post('/add',[StudentsController::class, "add"])->name('student.add');
-    Route::get('/edit',[StudentsController::class, "edit"])->name('student.edit');
+    Route::get('/{studentId}/get',[StudentsController::class, "get"])->name('student.get');
     Route::post('/{studentId}/update',[StudentsController::class, "update"])->name('student.update');
     Route::get('/{studentId}/delete',[StudentsController::class, "delete"])->name('student.delete');
     Route::get('/{studentId}/active',[StudentsController::class, "active"])->name('student.active');
