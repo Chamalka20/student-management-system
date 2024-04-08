@@ -7,14 +7,9 @@ use domain\facades\StudentFacade;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class StudentsController extends Controller
+class StudentsController extends ParentController
 {
-    protected $student;
     
-    public function __construct(Student $student)
-    {
-        $this->student = $student;
-    }
 
     public function index (){
         
